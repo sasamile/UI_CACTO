@@ -6,6 +6,7 @@ import { getEvent } from "@/actions/get-events";
 import { formatDate } from "@/utils/format-date";
 import { EventCommentForm } from "@/components/dinamic/events/event-comment-form";
 import { cn } from "@/lib/utils";
+import { Suspense } from "react";
 
 export default async function EventPage({
   params,
@@ -17,6 +18,11 @@ export default async function EventPage({
 
   const startDate = formatDate(new Date(event.startDate));
   const endDate = formatDate(new Date(event.endDate));
+  const maxDescriptionLength = 200;
+  const truncatedDescription =
+    event.description.length > maxDescriptionLength
+      ? `${event.description.slice(0, maxDescriptionLength)}...`
+      : event.description;
 
   return (
     <div className="min-h-full bg-zinc-100/30 overflow-x-hidden">
@@ -40,9 +46,13 @@ export default async function EventPage({
         <div className="">
           {/* Left Column */}
           <div className="mb-8 lg:mb-0">
-            <section className="shadow-lg rounded-lg p-6 mb-8 lg:mb-6  bg-white">
-              <h2 className="text-2xl font-bold mb-4">{event?.title}</h2>
-              <p className="text-gray-600 mb-4">{event?.description}</p>
+            <section className="shadow-lg rounded-lg p-6 mb-8 lg:mb-6 bg-white">
+              <h2 className="text-2xl font-bold mb-4 max-w-md break-words">
+                {event?.title}
+              </h2>
+              <div className="text-gray-600 mb-4 max-w-[900px]">
+                <p className="break-words">{truncatedDescription}</p>
+              </div>
               <div className="mb-4 space-y-1">
                 <div className="flex gap-1">
                   <h3 className="font-semibold">
@@ -79,7 +89,8 @@ export default async function EventPage({
                 )}
               >
                 <h2 className="text-2xl font-bold mb-4">
-                  <Clapperboard className="size-5 mr-3 inline-block" /> Publicación
+                  <Clapperboard className="size-5 mr-3 inline-block" />{" "}
+                  Publicación
                 </h2>
                 <div className="aspect-w-16 aspect-h-9">
                   <iframe
