@@ -15,7 +15,7 @@ export default function ImageGallery({ images }: ImageGalleryProps) {
   return (
     <div className="py-20 space-y-6 px-4 bg-zinc-100/30">
       <h2 className="xs:text-center lg:text-3xl text-[26px] font-bold text-foreground/90 px-5">
-        Conoce nuestros galeria de Imagenes 
+        Conoce nuestra galeria de Imagenes 
       </h2>
       <div className="flex max-sm:flex-col justify-center gap-4 p-4 xl:max-w-6xl w-full mx-auto">
         <div className="sm:flex-1 relative xl:max-w-6xl max-sm:h-[60vh] rounded-md bg-muted">
